@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:8080
+
+# @name createUser
+POST {{baseUrl}}/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "name": "rene@herrmannplatz",
+    "password": "1234"
+}
+
+###
+
+# @name login
+POST {{baseUrl}}/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "name": "rene@herrmannplatz",
+    "password": "1234"
+}
+
+@authToken = {{login.response.body.token}}
+@refreshToken = {{login.response.body.refresh_token}}
+
+###
+
+# @name postChirp
+POST {{baseUrl}}/api/chirps HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "body": "ticket #{{$randomInt 1 100}} won"
+}
