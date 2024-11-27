@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:8080
+
+# @name getPosts
+GET {{baseUrl}}/posts HTTP/1.1
+content-type: application/json
